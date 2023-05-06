@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 
 @Controller('transactions')
@@ -11,7 +11,9 @@ export class TransactionsController {
   }
 
   @Post('/')
-  createTransaction(): string {
+  createTransaction(
+    @Body() createTransactionDto: CreateTransactionDto,
+  ): string {
     return 'j';
   }
 
