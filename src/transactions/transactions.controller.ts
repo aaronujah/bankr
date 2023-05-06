@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -7,18 +8,18 @@ export class TransactionsController {
 
   @Get('/')
   getAllTransactions(): string {
-    return 'Get all users';
+    return this.transactionsService.getAllTransactions();
   }
 
   @Post('/')
   createTransaction(
     @Body() createTransactionDto: CreateTransactionDto,
   ): string {
-    return 'j';
+    return this.transactionsService.createTransaction(createTransactionDto);
   }
 
   @Get('/:id')
-  getTransaction(): string {
-    return ',';
+  getTransaction(@Param('agentId') transactionId: string): string {
+    return this.transactionsService.getTransaction(transactionId);
   }
 }
