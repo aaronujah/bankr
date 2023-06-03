@@ -14,11 +14,8 @@ export class User extends BaseEntity {
   @PrimaryColumn()
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
-
-  @Column({ unique: true })
-  nin: string;
 
   @Column({ unique: true })
   phoneNumber: string;

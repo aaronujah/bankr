@@ -20,6 +20,7 @@ export class SignUpDto {
   })
   password: string;
   confirmPassword: string;
+  phoneNumber: string;
 }
 
 export class SignInDto {
