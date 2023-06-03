@@ -9,6 +9,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { randomInt } from 'crypto';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -45,7 +46,7 @@ export class UserRepository extends Repository<User> {
     return bcrypt.hash(password, salt);
   }
 
-  async validateUser(signInDto: SignInDto): Promise<string> {
+  async validateUser(signInDto: SignInDto): Promise<JwtPayload> {
     const { email, password } = signInDto;
     console.log(email, password);
     const user = await this.findOne({
@@ -56,7 +57,7 @@ export class UserRepository extends Repository<User> {
     // Create session and add the session Id to the return
 
     if (user && (await user.validatePassword(password, user.password))) {
-      return user.id;
+      return { id: user.id };
     } else {
       return null;
     }
