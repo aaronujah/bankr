@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -43,4 +44,12 @@ export class User extends BaseEntity {
 
   @VersionColumn({ nullable: true })
   version: number;
+
+  async validatePassword(
+    password: string,
+    passwordHash: string,
+  ): Promise<boolean> {
+    const hash = await bcrypt.compare(password, passwordHash);
+    return hash === this.password;
+  }
 }

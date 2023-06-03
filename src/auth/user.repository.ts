@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
-import { SignUpDto } from './dto/auth-credentials.dto';
+import { SignInDto, SignUpDto } from './dto/auth-credentials.dto';
 import {
   BadRequestException,
   ConflictException,
@@ -37,5 +37,22 @@ export class UserRepository extends Repository<User> {
 
   private async hashPassword(password: string, salt: string): Promise<string> {
     return bcrypt.hash(password, salt);
+  }
+
+  async validateUser(signInDto: SignInDto): Promise<string> {
+    const { email, password } = signInDto;
+    console.log(email);
+    const user = await this.findOne({
+      where: { email },
+      select: { password: true, id: true },
+    });
+
+    // Create session and add the session Id to the return
+
+    if (user && (await user.validatePassword(password, user.password))) {
+      return user.id;
+    } else {
+      return null;
+    }
   }
 }

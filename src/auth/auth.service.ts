@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   async signIn(signInDto: SignInDto): Promise<string> {
-    return 'l';
+    return await this.userRepository.validateUser(signInDto);
   }
 
   async forgotPassword(): Promise<string> {
