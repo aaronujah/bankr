@@ -1,4 +1,10 @@
-import { Equals, IsEmail, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class SignUpDto {
   @IsString()
@@ -8,10 +14,12 @@ export class SignUpDto {
 
   @IsString()
   @MinLength(8, { message: 'Your password must be more than eight characters' })
+  @MaxLength(20)
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'password too weak',
+  })
   password: string;
-
-  @Equals((o) => o.password)
-  passwordConfirm: string;
+  confirmPassword: string;
 }
 
 export class SignInDto {
