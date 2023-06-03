@@ -1,18 +1,27 @@
-import { Controller, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Patch,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { SignInDto, SignUpDto } from './dto/auth-credentials.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/signup')
-  signUp(): string {
-    return null;
+  signUp(@Body() signUpDto: SignUpDto): Promise<string> {
+    return this.authService.signUp(signUpDto);
   }
 
   @Post('/signin')
-  signIn(): string {
-    return null;
+  @UsePipes(ValidationPipe)
+  signIn(@Body(ValidationPipe) signInDto: SignInDto): Promise<string> {
+    return this.authService.signIn(signInDto);
   }
 
   @Patch('/forgotPassword')

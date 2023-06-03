@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { SignInDto, SignUpDto } from './dto/auth-credentials.dto';
 
 @Injectable()
 export class AuthService {
-  async signUp(): Promise<string> {
+  async signUp(signUpDto: SignUpDto): Promise<string> {
     return 'l';
   }
 
-  async signIn(): Promise<string> {
+  async signIn(signInDto: SignInDto): Promise<string> {
     return 'l';
   }
 
