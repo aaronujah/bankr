@@ -1,7 +1,11 @@
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { SignUpDto } from './dto/auth-credentials.dto';
-import { BadRequestException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { randomInt } from 'crypto';
 
 export class UserRepository extends Repository<User> {
@@ -18,6 +22,14 @@ export class UserRepository extends Repository<User> {
     user.phoneNumber = phoneNumber;
     user.password = password;
 
-    await user.save();
+    try {
+      await user.save();
+    } catch (error) {
+      if (error.code === '23505') {
+        throw new ConflictException(error.message);
+      } else {
+        throw new InternalServerErrorException(error.message);
+      }
+    }
   }
 }
