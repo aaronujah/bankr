@@ -15,7 +15,7 @@ export class AuthController {
 
   @Post('/signup')
   @UsePipes(ValidationPipe)
-  signUp(@Body() signUpDto: SignUpDto): Promise<string> {
+  signUp(@Body() signUpDto: SignUpDto): Promise<void> {
     return this.authService.signUp(signUpDto);
   }
 

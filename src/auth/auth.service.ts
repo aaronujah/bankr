@@ -10,8 +10,8 @@ export class AuthService {
     private userRepository: UserRepository,
   ) {}
 
-  async signUp(signUpDto: SignUpDto): Promise<string> {
-    return 'l';
+  async signUp(signUpDto: SignUpDto): Promise<void> {
+    return await this.userRepository.signUp(signUpDto);
   }
 
   async signIn(signInDto: SignInDto): Promise<string> {
