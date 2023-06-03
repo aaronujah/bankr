@@ -49,7 +49,6 @@ export class User extends BaseEntity {
     password: string,
     passwordHash: string,
   ): Promise<boolean> {
-    const hash = await bcrypt.compare(password, passwordHash);
-    return hash === this.password;
+    return await bcrypt.compare(password, passwordHash);
   }
 }

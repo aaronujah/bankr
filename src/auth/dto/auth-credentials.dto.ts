@@ -25,11 +25,8 @@ export class SignUpDto {
 
 export class SignInDto {
   @IsString()
-  @MinLength(5, { message: 'Email is too short' })
-  @IsEmail()
   email: string;
 
   @IsString()
-  @MinLength(8, { message: 'Your password must be more than eight characters' })
   password: string;
 }
