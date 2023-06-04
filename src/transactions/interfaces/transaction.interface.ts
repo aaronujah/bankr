@@ -6,3 +6,16 @@ export interface Transaction {
   destinationBank: string;
   amount: number;
 }
+
+export enum TransactionType {
+  Internal = 'internal',
+  External = 'extenal',
+  Combined = 'combined',
+}
+
+export enum TransactionStatus {
+  Pending = 'pending',
+  Completed = 'completed',
+  Failed = 'failed',
+  Recurrent = 'recurrent',
+}
