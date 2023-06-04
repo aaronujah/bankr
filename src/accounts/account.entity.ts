@@ -27,8 +27,13 @@ export class Account extends BaseEntity {
   accountUser: string;
 
   @ManyToOne(() => User, (user) => user.accounts, { eager: true })
-  @JoinColumn({ name: 'user' })
+  @JoinColumn({ name: 'accountUser' })
   user: User;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.account, {
+    eager: false,
+  })
+  transactions: Transaction[];
 
   @DeleteDateColumn({ select: false, nullable: true, insert: false })
   deletedAt?: Date;
