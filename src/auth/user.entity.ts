@@ -4,11 +4,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Account } from 'src/accounts/account.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -32,6 +34,9 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true, insert: false })
   avatar: string;
+
+  @OneToMany(() => Account, (account) => account.user, { eager: false })
+  accounts: Account[];
 
   @DeleteDateColumn({ select: false, nullable: true, insert: false })
   deletedAt?: Date;
