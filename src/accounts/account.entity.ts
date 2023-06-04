@@ -6,11 +6,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Bank } from './interfaces/account.interface';
 import { User } from 'src/auth/user.entity';
+import { Transaction } from 'src/transactions/transaction.entity';
 
 @Entity({ name: 'accounts' })
 export class Account extends BaseEntity {

@@ -1,3 +1,4 @@
+import { Account } from 'src/accounts/account.entity';
 import { User } from 'src/auth/user.entity';
 import {
   BaseEntity,
@@ -17,21 +18,18 @@ export class Transaction extends BaseEntity {
   id: string;
 
   @Column()
-  accountNumber: string;
-
-  @Column()
   transactionUser: string;
 
   @Column()
-  transactionUser: string;
+  transactionAccount: string;
 
   @ManyToOne(() => User, (user) => user.transactions, { eager: true })
   @JoinColumn({ name: 'transactionUser' })
   user: User;
 
-  @ManyToOne(() => User, (user) => user.transactions, { eager: true })
-  @JoinColumn({ name: 'transactionUser' })
-  user: User;
+  @ManyToOne(() => Account, (account) => account.transactions, { eager: true })
+  @JoinColumn({ name: 'transactionAccount' })
+  account: Account;
 
   @DeleteDateColumn({ select: false, nullable: true, insert: false })
   deletedAt?: Date;
