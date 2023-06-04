@@ -9,6 +9,7 @@ export interface Transaction {
 
 export enum TransactionType {
   Internal = 'internal',
+  InternalCombined = 'internalCombined',
   External = 'extenal',
   Combined = 'combined',
 }
